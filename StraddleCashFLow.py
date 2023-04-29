@@ -104,4 +104,3 @@ data.to_excel('2022.xlsx')
     data['withdrawn'][j] = withdrawn
 '''
 
-d
