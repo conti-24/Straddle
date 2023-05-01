@@ -1,16 +1,21 @@
 import pandas as pd
 
-data = pd.read_excel('ETHUSDT-1h-2023-01.xlsx',index_col=0, parse_dates=True)
-cantDatos = data.index_size
+data = pd.read_excel('2022.xlsx',index_col=0, parse_dates=True)
+cantDatos = len(data.index)
 cantDatos = int(cantDatos)
-
+#data.set_index(data['date'][0])
 
 data['change'] = 0.0
 
-for i in range(1,cantDatos,24):
-    data['change'][i] = 1
-    data = data.loc[data['change'] != 0] 
+for i in range(0,cantDatos,1):
+    hour = str(data['date'][i])
+    if (hour == '00:00:00' or hour == '01:00:00' or hour == '02:00:00' or hour == '03:00:00' or hour == '04:00:00' or hour == '05:00:00' or hour == '06:00:00' or hour == '07:00:00' or hour == '08:00:00'):
+        data['change'][i] = 1
 
+data = data.loc[data['change'] != 0] 
+
+
+'''
 data['call_strike'] = 0.0
 data['put_strike'] = 0.0
 data['premium'] = 0.0
@@ -68,6 +73,7 @@ for i in range(0,cantDatos,1):
 
 print('Winners: ', winners)
 print('Losers: ', losers)
+'''
 print('success')
 
 data.to_excel('2022.xlsx')
